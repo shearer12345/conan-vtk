@@ -48,7 +48,8 @@ class VTKConan(ConanFile):
         cmake = CMake(self.settings)
         if self.settings.os == "Windows":
             self.run("IF not exist _build mkdir _build")
-            BUILD_OPTIONALS = "-- /maxcpucount"
+            if self.settings.compiler == "Visual Studio":
+                BUILD_OPTIONALS = "-- /maxcpucount"
         else:
             self.run("mkdir _build")
             if self.settings.os == "Macos":
